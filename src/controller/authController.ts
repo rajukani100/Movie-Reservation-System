@@ -87,8 +87,8 @@ class AuthController {
             }
 
             //valid user -> send JWT Token
-            const jwtUser: jwtUser = { userId: user.id, role: user.role };
-            const jwtToken = generateJWT(jwtUser)
+            const jwtUserModel: jwtUser = { userId: user.id, role: user.role };
+            const jwtToken = generateJWT(jwtUserModel)
             res.json({
                 status: 200,
                 accessToken: jwtToken,
