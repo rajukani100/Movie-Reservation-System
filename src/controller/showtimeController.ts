@@ -59,6 +59,38 @@ class ShowtimeController {
             });
         }
     }
+
+    static async getShowtime(req: Request, res: Response) {
+        const movieId = req.params.id;
+
+        try {
+            const showList = await prisma.show.findMany({
+                where: {
+                    movieId: movieId
+                },
+                orderBy: {
+                    startTime: 'asc'
+                }
+            })
+
+            if (!showList) {
+                res.json({
+                    status: 200,
+                    message: "No shows found."
+                })
+                return;
+            }
+
+            res.json(showList)
+            return
+        } catch (e) {
+            res.status(500).json({
+                status: 500,
+                message: "Error occured while finding show."
+            })
+        }
+
+    }
 }
 
 export default ShowtimeController
