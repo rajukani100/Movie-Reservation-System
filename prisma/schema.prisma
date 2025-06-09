@@ -33,13 +33,14 @@ model Show {
 }
 
 model Seat {
-  id            String       @id @default(uuid())
   seatNumber    String
   showtime      Show         @relation(fields: [ShowId], references: [id])
   ShowId        String       @map("showtimeId")
   isReserved    Boolean      @default(false)
   reservation   Reservation? @relation(fields: [reservationId], references: [id])
   reservationId String?
+
+  @@id([ShowId, seatNumber])
 }
 
 model Reservation {
